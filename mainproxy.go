@@ -69,6 +69,7 @@ func replaceURLhtml(urlString string, element string, currentURLp *url.URL) stri
 	}
 
 	newurlString = strings.Replace(newurlString, element, ``, -1)
+	newurlString = strings.Replace(newurlString, ` `, ``, -1) //nuovo, non sono sicuro
 
 	//log.Println("prima: " + newurlString)
 
@@ -110,6 +111,7 @@ func replaceURLcss(urlString string, element string, currentURLp *url.URL) strin
 	newurlString = strings.Replace(newurlString, `)`, ``, -1)
 	newurlString = strings.Replace(newurlString, `'`, ``, -1)
 	newurlString = strings.Replace(newurlString, `"`, ``, -1)
+	newurlString = strings.Replace(newurlString, ` `, ``, -1) //nuovo, non sono sicuro
 
 	//la parso
 	urlp, err := url.Parse(newurlString)
@@ -179,7 +181,7 @@ func gopage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	pageurl := unmarshalURL(urlParam[0])
-
+	log.Println("fetch url gopage unmarshalled: " + pageurl.String())
 	// vado a pescare la pagina richiesta
 	response, err := http.Get(pageurl.String())
 	if err != nil {
