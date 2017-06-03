@@ -150,10 +150,17 @@ func transformPage(b string, originalURL *url.URL) string {
 	transformed = re.ReplaceAllStringFunc(transformed, replaceURLelem)
 
 	//occupiamoci delle url css
+	//url
 	replaceURLelem = func(urlString string) string {
 		return replaceURLcss(urlString, "url(", originalURL)
 	}
 	re = regexp.MustCompile(`url\((.*?)\)`)
+	transformed = re.ReplaceAllStringFunc(transformed, replaceURLelem)
+	//import diretti
+	replaceURLelem = func(urlString string) string {
+		return replaceURLhtml(urlString, "import ", originalURL)
+	}
+	re = regexp.MustCompile(`import ("|')(.*?)("|')`)
 	transformed = re.ReplaceAllStringFunc(transformed, replaceURLelem)
 
 	return transformed
