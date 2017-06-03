@@ -194,12 +194,12 @@ func gopage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	mimetype := response.Header.Get("Content-Type")
+	w.Header().Set("Content-Type", mimetype)
 	//log.Println(pageurl.String() + " " + mimetype)
 
 	//ora riscrivo il contenuto se e' css o html
 	if strings.Contains(mimetype, `text/css`) || strings.Contains(mimetype, `text/html`) {
 		respString := transformPage(string(body), pageurl)
-		w.Header().Set("Content-Type", mimetype)
 		io.WriteString(w, respString)
 	} else {
 		io.WriteString(w, string(body))
