@@ -69,7 +69,7 @@ func replaceURLhtml(urlString string, element string, currentURLp *url.URL) stri
 	}
 
 	newurlString = strings.Replace(newurlString, element, ``, -1)
-	newurlString = strings.Replace(newurlString, ` `, ``, -1) //nuovo, non sono sicuro
+	newurlString = strings.Replace(newurlString, ` `, ``, -1) //nuovo, non sono sicurox
 
 	//log.Println("prima: " + newurlString)
 
@@ -204,6 +204,8 @@ func gopage(w http.ResponseWriter, r *http.Request) {
 		respString := transformPage(string(body), pageurl)
 		io.WriteString(w, respString)
 	} else {
+		// per i mimetype che non mi interessano
+		// c'e' da trovare un modo per scaricarli e fornirli mentre sono in download...
 		io.WriteString(w, string(body))
 	}
 
@@ -245,5 +247,4 @@ func main() {
 	http.HandleFunc("/go", gopage)
 	http.HandleFunc("/", mainpage)
 	http.ListenAndServe(":8000", nil)
-	// devo parsare solo quelli con mime type text/html, forse anche text/css
 }
