@@ -56,11 +56,11 @@ func replaceURLhtml(urlString string, element string, currentURLp *url.URL) stri
 	//log.Println("url da riscrivere: " + urlString)
 	//prendo la vera url, go non ha lookahead, stronzi
 	//devo inoltre preservare i quote
-
-	newurlString := ""
+	//log.Println("prima prima: " + urlString)
+	newurlString := urlString
 	quote := ""
-	if strings.Contains(urlString, `"`) {
-		newurlString = strings.Replace(urlString, `"`, ``, -1)
+	if strings.Contains(newurlString, `"`) {
+		newurlString = strings.Replace(newurlString, `"`, ``, -1)
 		quote = `"`
 	}
 	if strings.Contains(newurlString, `'`) {
